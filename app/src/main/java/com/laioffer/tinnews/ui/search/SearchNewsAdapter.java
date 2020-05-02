@@ -51,10 +51,10 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
     public void onBindViewHolder(@NonNull SearchNewsViewHolder holder, int position) {
         Article article = articles.get(position);
 
-        // TODO: title can be removed
-        holder.title.setText(article.title);
+//        // TODO: title can be removed
+//        holder.title.setText(article.title);
 
-        if (article.urlToImage == null) {
+        if (article.urlToImage == null || article.urlToImage.isEmpty()) {
             holder.newsImage.setImageResource(R.drawable.ic_empty_image);
         } else {
             Picasso.get().load(article.urlToImage).into(holder.newsImage);
@@ -72,6 +72,10 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
                     article.favorite = true;
                     likeListener.onLike(article);
                 });
+        holder.itemView.setOnClickListener(
+                v -> {
+                    likeListener.onClick(article);
+                });
     }
 
 
@@ -84,15 +88,15 @@ public class SearchNewsAdapter extends RecyclerView.Adapter<SearchNewsAdapter.Se
         ImageView newsImage;
         ImageView favorite;
 
-        // TODO: title can be removed
-        TextView title;
+//        // TODO: title can be removed
+//        TextView title;
 
         public SearchNewsViewHolder(View itemView) {
             super(itemView);
             newsImage = itemView.findViewById(R.id.image);
             favorite = itemView.findViewById(R.id.favorite);
-            // TODO: title can be removed
-            title = itemView.findViewById(R.id.title);
+//            // TODO: title can be removed
+//            title = itemView.findViewById(R.id.title);
         }
     }
 
